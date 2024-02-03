@@ -1,7 +1,7 @@
-import {Request,Response} from "express"
+import {RequestHandler} from "express"
 import sharp, {ResizeOptions, FitEnum} from "sharp";
 
-export const resizeHandler = (req: Request, res:Response) => {
+export const resizeHandler: RequestHandler = (req, res, next) => {
   const sharpResizeReq: ResizeOptions = {}
   if (req.query.width) {
     sharpResizeReq.width = parseInt(req.query.width as string)
@@ -21,5 +21,5 @@ export const resizeHandler = (req: Request, res:Response) => {
       res.type(req.headers["content-type"] ?? "jpg");
       res.end(outputBuffer)
     })
-  // res.send('resize')
+    .catch(err => next(err))
 }

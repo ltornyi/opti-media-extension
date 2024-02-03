@@ -1,7 +1,7 @@
-import {Request,Response} from "express"
+import {RequestHandler} from "express"
 import sharp from "sharp";
 
-export const rotateHandler = (req: Request, res:Response) => {
+export const rotateHandler: RequestHandler = (req, res, next) => {
   const angle = req.query.angle ? parseInt(req.query.angle as string) : 90;
   
   sharp(req.body)
@@ -11,4 +11,5 @@ export const rotateHandler = (req: Request, res:Response) => {
       res.type(req.headers["content-type"] ?? "jpg");
       res.end(outputBuffer)
     })
+    .catch(err => next(err))
 }
