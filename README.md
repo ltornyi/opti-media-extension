@@ -8,9 +8,27 @@ Run `npm run dev` to start local dev server. Sharp module was pinned to version 
 
 The service expects a valid client API key to be passed to each request in the `opti-api-key` header. Generate a new key with the `generate_key.js` utility. It prints the API key that should be used in the client calling the service. The utility also prints the generated hash and salt to be stored in `config/apikeys.json`.
 
+## Tests
+
+    curl http://localhost:8000/ -H "opti-api-key: <your api key>"
+
+    curl -X POST "http://localhost:8000/ome/v1/resize?width=400&fit=contain&height=400" \
+      -H "opti-api-key: <your api key>" \
+      -H "Content-Type: image/png" \
+      --data-binary @imgs/pexels.png >> imgs/pexels-resize-response.png
+
+    curl -X POST "http://localhost:8000/ome/v1/rotate" \
+      -H "opti-api-key: <your api key>" \
+      -H "Content-Type: image/png" \
+      --data-binary @imgs/pexels.png >> imgs/pexels-resize-response.png
+
 ## Production build
 
 Run `npm run build` to generate a single .js for production (it will include apikeys.json as well).
+
+## Run as a pm2 service
+
+pm2 start ./dist/index.js --name opti-media-extension -i 2 --time
 
 ## V1 APIs
 
