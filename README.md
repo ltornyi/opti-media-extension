@@ -6,7 +6,7 @@ Run `npm run dev` to start local dev server. Sharp module was pinned to version 
 
 ## Key management
 
-The service expects a valid client API key to be passed to each request in the `opti-api-key` header. Generate a new key with the `generate_key.js` utility. It prints the API key that should be used in the client calling the service. The utility also prints the generated hash and salt to be stored in `config/apikeys.json`.
+The service expects a valid client API key to be passed to each request in the `opti-api-key` header. Generate a new key with the `generate_key.js` utility. It prints the API key that should be used in the client calling the service. The utility also prints the generated hash and salt to be stored in `config/apikeys.json`. The structure of this file is an array of objects with a "client" and a "secret" attribute.
 
 ## Tests
 
