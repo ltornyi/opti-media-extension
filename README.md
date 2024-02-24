@@ -30,16 +30,26 @@ Run `npm run build` to generate a single .js for production (it will include api
 
 pm2 start ./dist/index.js --name opti-media-extension -i 2 --time
 
-## V1 APIs
+## V1 media APIs
 
 all under `/ome/v1`
 
-POST the image to be processed as the request body. Current implementation handles JPEG and PNG; set the content-type header accordingly. Response will be the processed image in the original format.
+POST the image to be processed as the request body. Current implementation handles JPEG, PNG, GIF and WebP; set the content-type header accordingly. Response will be the processed image in the original format.
 
 | API example | Usage |
 | ----------- | ----------- |
 | POST /resize?width=400&height=200&fit=contain |  See [Sharp doc](https://sharp.pixelplumbing.com/api-resize) for valid values of fit. |
 | POST /rotate?angle=90 | angle is optional; if missing, it's treated as 90 |
+
+## V1 document APIs
+
+all under `/ode/v1`
+
+POST the document to be processed as the request body.
+
+| API example | Usage |
+| ----------- | ----------- |
+| POST /html2pdf |  Response is the PDF version of the HTML received. |
 
 ## References
 
@@ -48,3 +58,5 @@ POST the image to be processed as the request body. Current implementation handl
 [Vercel/ncc compiler](https://github.com/vercel/ncc)
 
 [Sharp home](https://sharp.pixelplumbing.com)
+
+[Puppeteer API](https://pptr.dev/api/puppeteer.puppeteernode)

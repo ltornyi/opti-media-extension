@@ -1,7 +1,8 @@
 import express, {Application} from 'express';
 import { checkSecrets } from './secrets/secrets';
-import { router as routerV1 } from './v1/router';
-import { errorHandler } from './v1/error';
+import { router as omeRouterV1 } from './ome/v1/router';
+import { router as odeRouterV1 } from './ode/v1/router';
+import { errorHandler } from './common/error';
 
 const app:Application = express();
 const PORT = process.env.PORT ?? 8000;
@@ -12,7 +13,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!")
 });
 
-app.use("/ome/v1", routerV1);
+app.use("/ome/v1", omeRouterV1);
+app.use("/ode/v1", odeRouterV1);
 app.use(errorHandler)
 
 app.listen(PORT, ():void => {
