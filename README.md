@@ -22,6 +22,11 @@ The service expects a valid client API key to be passed to each request in the `
       -H "Content-Type: image/png" \
       --data-binary @imgs/pexels.png >> imgs/pexels-resize-response.png
 
+    curl -X POST "http://localhost:8000/ode/v1/html2pdf" \
+      -H "opti-api-key: <your api key>" \
+      -H "Content-Type: text/html" \
+      --data-binary @htmls/example1.html >> htmls/example1.pdf
+
 ## Production build
 
 Run `npm run build` to generate a single .js for production (it will include apikeys.json as well).
