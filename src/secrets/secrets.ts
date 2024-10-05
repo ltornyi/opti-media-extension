@@ -1,5 +1,6 @@
 import { BinaryLike, scryptSync, timingSafeEqual } from "crypto";
 import { NextFunction, Request, Response } from "express";
+import { logInfo, logWarn } from "../common/logging";
 
 interface Secret {
   client: string,
@@ -10,17 +11,18 @@ export const checkSecrets = (req:Request, res:Response, next: NextFunction) => {
   const apikeys: Secret[] = require('../config/apikeys.json');
   const apiKey = req.headers['opti-api-key'];
   if (!apiKey) {
+    logWarn('No opti-api-key header');
     res.sendStatus(401);
     return;
   }
   for (let entry of apikeys) {
     if (compareKeys(entry.secret, apiKey as string)) {
-      console.log(`CALL from client:${entry.client}`)
+      logInfo(`CALL from client:${entry.client}`)
       next();
       return;
     }
   }
-  console.log(`INVALID key: ${apiKey}`)
+  logWarn(`INVALID key: ${apiKey}`)
   res.sendStatus(401);
 }
 

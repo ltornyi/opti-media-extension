@@ -34,6 +34,9 @@ Run `npm run build` to generate a single .js for production (it will include api
 ## Run as a pm2 service
 
 pm2 start ./dist/index.js --name opti-media-extension -i 2 --time
+pm2 restart opti-media-extension -- debug
+pm2 restart opti-media-extension -- info
+pm2 stop opti-media-extension
 
 ## V1 media APIs
 
